@@ -32,13 +32,26 @@ public class Employee {
 	private String firstName;
 	private String lastName;
 	private String description;
+	private String jobTitle;
 
-	private Employee() {}
+	public Employee() {}
 
-	public Employee(String firstName, String lastName, String description) {
+	public Employee(String firstName, String lastName, String description, String jobTitle) {
+		if (!validateArguments(firstName, lastName, description, jobTitle)) {
+			throw new IllegalArgumentException("Invalid argument");
+		}
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.description = description;
+		this.jobTitle= jobTitle;
+	}
+
+	public boolean validateArguments(String firstName, String lastName, String description, String jobTitle) {
+		if (firstName == null ||  firstName.trim().isEmpty()) return false;
+		if (lastName == null || lastName.trim().isEmpty()) return false;
+		if (description == null ||  description.trim().isEmpty()) return false;
+		if (jobTitle == null || jobTitle.trim().isEmpty()) return false;
+		return true;
 	}
 
 	@Override
@@ -49,13 +62,14 @@ public class Employee {
 		return Objects.equals(id, employee.id) &&
 			Objects.equals(firstName, employee.firstName) &&
 			Objects.equals(lastName, employee.lastName) &&
-			Objects.equals(description, employee.description);
+			Objects.equals(description, employee.description) &&
+			Objects.equals(jobTitle,employee.jobTitle);
 	}
 
 	@Override
 	public int hashCode() {
 
-		return Objects.hash(id, firstName, lastName, description);
+		return Objects.hash(id, firstName, lastName, description,jobTitle);
 	}
 
 	public Long getId() {
@@ -90,6 +104,14 @@ public class Employee {
 		this.description = description;
 	}
 
+	public String getJobTitle() {
+		return jobTitle;
+	}
+
+	public void setJobTitle(String jobTitle) {
+		this.jobTitle = jobTitle;
+	}
+
 	@Override
 	public String toString() {
 		return "Employee{" +
@@ -97,6 +119,7 @@ public class Employee {
 			", firstName='" + firstName + '\'' +
 			", lastName='" + lastName + '\'' +
 			", description='" + description + '\'' +
+			", jobTitle='" + jobTitle + '\'' +
 			'}';
 	}
 }
