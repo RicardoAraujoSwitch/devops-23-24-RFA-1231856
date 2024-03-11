@@ -41,7 +41,9 @@ class EmployeeList extends React.Component{
 						<th>First Name</th>
 						<th>Last Name</th>
 						<th>Description</th>
-					</tr>
+						<th>Job title</th>
+						<th>Job Years</th>
+						</tr>
 					{employees}
 				</tbody>
 			</table>
@@ -58,10 +60,13 @@ class Employee extends React.Component{
 				<td>{this.props.employee.firstName}</td>
 				<td>{this.props.employee.lastName}</td>
 				<td>{this.props.employee.description}</td>
+				<td>{this.props.employee.jobTitle}</td>
+				<td>{this.props.employee.jobYears}</td>
 			</tr>
 		)
 	}
 }
+
 // end::employee[]
 
 // tag::render[]

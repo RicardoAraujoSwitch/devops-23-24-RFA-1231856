@@ -1,3 +1,4 @@
+
 /*
  * Copyright 2015 the original author or authors.
  *
@@ -34,26 +35,31 @@ public class Employee {
 	private String description;
 	private String jobTitle;
 	private int jobYears;
+	private String email;
 
-	public Employee() {}
+	public Employee() {
 
-	public Employee(String firstName, String lastName, String description, String jobTitle, int jobYears) {
-		if (!validateArguments(firstName, lastName, description, jobTitle, jobYears)) {
-			throw new IllegalArgumentException("Invalid argument");
+	}
+
+	public Employee(String firstName, String lastName, String description, String jobTitle, int jobYears, String email) {
+		if (!validateArguments(firstName, lastName, description, jobTitle, jobYears, email)) {
+			throw new IllegalArgumentException("Invalid arguments");
 		}
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.description = description;
-		this.jobTitle= jobTitle;
-		this.jobYears= jobYears;
+		this.jobTitle = jobTitle;
+		this.jobYears = jobYears;
+		this.email = email;
 	}
 
-	public boolean validateArguments(String firstName, String lastName, String description, String jobTitle, int jobYears) {
-		if (firstName == null ||  firstName.trim().isEmpty()) return false;
+	public boolean validateArguments(String firstName, String lastName, String description, String jobTitle, int jobYears, String email) {
+		if (firstName == null || firstName.trim().isEmpty()) return false;
 		if (lastName == null || lastName.trim().isEmpty()) return false;
-		if (description == null ||  description.trim().isEmpty()) return false;
+		if (description == null || description.trim().isEmpty()) return false;
 		if (jobTitle == null || jobTitle.trim().isEmpty()) return false;
 		if (jobYears < 0) return false;
+		if (email == null || email.trim().isEmpty()) return false;
 		return true;
 	}
 
@@ -62,18 +68,18 @@ public class Employee {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		Employee employee = (Employee) o;
-		return Objects.equals(id, employee.id) &&
-			Objects.equals(firstName, employee.firstName) &&
-			Objects.equals(lastName, employee.lastName) &&
-			Objects.equals(description, employee.description) &&
-			Objects.equals(jobTitle,employee.jobTitle) &&
-			Objects.equals(jobYears,employee.jobYears);
+		return Objects.equals(id, employee.id) && Objects.equals(firstName, employee.firstName) &&
+				Objects.equals(lastName, employee.lastName) &&
+				Objects.equals(description, employee.description) &&
+				Objects.equals(jobTitle, employee.jobTitle) &&
+				Objects.equals(jobYears, employee.jobYears) &&
+				Objects.equals(email, employee.email);
 	}
 
 	@Override
 	public int hashCode() {
 
-		return Objects.hash(id, firstName, lastName, description,jobTitle, jobYears);
+		return Objects.hash(id, firstName, lastName, description, jobTitle, jobYears, email);
 	}
 
 	public Long getId() {
@@ -124,16 +130,25 @@ public class Employee {
 		this.jobYears = jobYears;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	@Override
 	public String toString() {
 		return "Employee{" +
-			"id=" + id +
-			", firstName='" + firstName + '\'' +
-			", lastName='" + lastName + '\'' +
-			", description='" + description + '\'' +
-			", jobTitle='" + jobTitle + '\'' +
-			", jobYears='" + jobYears + '\'' +
-			'}';
+				"id=" + id +
+				", firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", description='" + description + '\'' +
+				", jobTitle='" + jobTitle + '\'' +
+				", jobYears=" + jobYears +
+				", email='" + email + '\'' +
+				'}';
 	}
 }
 // end::code[]
