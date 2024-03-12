@@ -101,4 +101,9 @@ public class EmployeeTest {
         Employee employee2 = new Employee("John", "Doe", "Description", "Developer", 5, "john@gmail.com");
         assertEquals(employee1.hashCode(), employee2.hashCode());
     }
+    @Test
+    void testInvalidEmail_shouldReturnFalse() {
+        Employee employee = new Employee();
+        assertFalse(employee.validateArguments("John", "Doe", "Description", "Developer", 5, "john"));
+    }
 }
