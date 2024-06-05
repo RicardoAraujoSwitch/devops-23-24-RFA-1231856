@@ -1,0 +1,16 @@
+
+FROM tomcat
+RUN apt-get update && apt-get install -y dos2unix
+WORKDIR /app
+
+
+COPY . .
+
+
+EXPOSE 8080
+
+RUN dos2unix ./gradlew
+
+
+ENTRYPOINT ["./gradlew"]
+CMD ["bootRun"]
