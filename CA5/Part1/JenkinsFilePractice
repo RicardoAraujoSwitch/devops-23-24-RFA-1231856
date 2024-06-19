@@ -1,0 +1,44 @@
+pipeline {
+    agent any
+
+    environment {
+        REPO_URL = 'https://github.com/RicardoAraujoSwitch/devops-23-24-RFA-1231856.git'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                echo 'Checking out the code...'
+                git url: "${REPO_URL}", branch: 'master'
+            }
+        }
+
+        stage('Assemble') {
+            steps {
+                dir('CA2/Part1') {
+                    echo 'Assembling the application...'
+                    bat 'gradlew.bat assemble'
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                dir('CA2/Part1') {
+                    echo 'Running unit tests...'
+                    bat 'gradlew.bat test'
+                    junit 'build/test-results/test/*.xml'
+                }
+            }
+        }
+
+        stage('Archive') {
+            steps {
+                dir('CA2/Part1') {
+                    echo 'Archiving artifacts...'
+                    archiveArtifacts artifacts: 'build/libs/*.jar', fingerprint: true
+                }
+            }
+        }
+    }
+}
